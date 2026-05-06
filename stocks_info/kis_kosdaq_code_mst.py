@@ -13,24 +13,24 @@ def kosdaq_master_download(base_dir, verbose=False):
     cwd = os.getcwd()
     if (verbose): print(f"current directory is {cwd}")
     ssl._create_default_https_context = ssl._create_unverified_context
-    
+
     urllib.request.urlretrieve("https://new.real.download.dws.co.kr/common/master/kosdaq_code.mst.zip",
-                               base_dir + "\\kosdaq_code.zip")
+                               base_dir + "/kosdaq_code.zip")
 
     os.chdir(base_dir)
     if (verbose): print(f"change directory to {base_dir}")
     kosdaq_zip = zipfile.ZipFile('kosdaq_code.zip')
     kosdaq_zip.extractall()
-    
+
     kosdaq_zip.close()
 
     if os.path.exists("kosdaq_code.zip"):
         os.remove("kosdaq_code.zip")
 
 def get_kosdaq_master_dataframe(base_dir):
-    file_name = base_dir + "\\kosdaq_code.mst"
-    tmp_fil1 = base_dir + "\\kosdaq_code_part1.tmp"
-    tmp_fil2 = base_dir + "\\kosdaq_code_part2.tmp"
+    file_name = base_dir + "/kosdaq_code.mst"
+    tmp_fil1 = base_dir + "/kosdaq_code_part1.tmp"
+    tmp_fil2 = base_dir + "/kosdaq_code_part2.tmp"
 
     wf1 = open(tmp_fil1, mode="w")
     wf2 = open(tmp_fil2, mode="w")
@@ -49,7 +49,7 @@ def get_kosdaq_master_dataframe(base_dir):
     wf2.close()
 
     part1_columns = ['단축코드','표준코드','한글종목명']
-    df1 = pd.read_csv(tmp_fil1, header=None, names=part1_columns, encoding='cp949')
+    df1 = pd.read_csv(tmp_fil1, header=None, names=part1_columns, encoding='utf-8')
 
     field_specs = [2, 1,
                    4, 4, 4, 1, 1,

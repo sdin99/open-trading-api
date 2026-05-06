@@ -157,6 +157,9 @@ KIS/
 .master/
 .kis_token*.json
 
+# ===== KIS master data files (대용량, 재다운로드 가능) =====
+stocks_info_files/
+
 # ===== Lean workspace =====
 .lean-workspace/
 
